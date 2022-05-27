@@ -20,8 +20,8 @@ $val = $stmt->fetch(PDO::FETCH_ASSOC);
 if( password_verify($senha, $val['senha'])){
     $_SESSION['id'] = $email;
 
-    header('location: home.php');
+    header('location: ../home.php');
 }else{
     echo "Credenciais Inválidas<br><br>
-            <a href='index.php'>Voltar</a>";
+            <a href='login.php'>Voltar</a>";
 }
