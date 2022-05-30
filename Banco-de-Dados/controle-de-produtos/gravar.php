@@ -10,20 +10,24 @@ $tipo_produto                       = $_POST['tipo_produto'];
 $raridade                           = $_POST['raridade'];
 $arquivoEnviado                     = '';
 
-if($_FILES['figura']['error'] == 0 && $_FILES['figura']['size'] > 0){
+var_dump($_FILES['imagem-produto']);
 
-    $mimeType = mime_content_type($_FILES['figura']['tmp_name']);
+if($_FILES['imagem-produto']['error'] == 0 && $_FILES['imagem-produto']['size'] > 0){
+
+    $mimeType = mime_content_type($_FILES['imagem-produto']['tmp_name']);
 
     $campos = explode('/', $mimeType);
+
+    
 
     $tipo = $campos[0];
     $ext = $campos[1];
 
     if($tipo == 'image'){
 
-        $arquivoEnviado = '../../assets/imagens' . $_FILES['figura']['name'] . '_' . md5(rand(-99999, 99999) . microtime()) . '.' . $ext;
+        $arquivoEnviado = '../../assets/imagens' . $_FILES['imagem-produto']['name'] . '_' . md5(rand(-99999, 99999) . microtime()) . '.' . $ext;
 
-        move_uploaded_file($_FILES['figura']['tmp_name'], 
+        move_uploaded_file($_FILES['imagem-produto']['tmp_name'], 
                             "$arquivoEnviado");
     }else{
         echo "Só é possível enviar tipo de arquivo de imagens";
@@ -98,5 +102,5 @@ if( $tb_produtos->execute() ){
 }
 ?>
 
-<br><a href="form.php">Voltar</a>
+<br><a href="cadastrar.php">Voltar</a>
 <br><a href="listar.php">Ver todos os Produtos</a>

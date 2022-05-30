@@ -30,7 +30,7 @@
                         <label label for="data">Data de lançamento do Produto</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="categoria" list="opcoes_categoria" id="categoria" placeholder="Type to search...">
+                        <input class="form-control" name="categoria" list="opcoes_categoria" id="categoria" placeholder="Type to search..." autocomplete="off">
                         <label for="categoria" class="form-label">Categoria</label>
                         <datalist id="opcoes_categoria">
                             <option value="Life Style">
@@ -38,7 +38,7 @@
                         </datalist>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="raridade" list="opcoes_raridade" id="raridade" placeholder="Escolha uma raridade">
+                        <input class="form-control" name="raridade" list="opcoes_raridade" id="raridade" placeholder="Escolha uma raridade" autocomplete="off">
                         <label for="raridade" class="form-label">Raridade</label>
                         <datalist id="opcoes_raridade">
                             <option value="Comum">
@@ -49,11 +49,11 @@
                         </datalist>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="file" class="form-control" id="figura" name="figura" placeholder="Anexar Imagem">
-                        <label for="figura" class="form-label">Anexar Imagem</label>
+                        <input type="file" class="form-control" id="imagem-produto" name="imagem-produto" placeholder="Anexar Imagem">
+                        <label for="imagem-produto" class="form-label">Anexar Imagem</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="submit" value="Enviar">
+                        <input class="btn btn-primary" type="submit" value="Enviar">
                     </div>
                 </form>
             </div>

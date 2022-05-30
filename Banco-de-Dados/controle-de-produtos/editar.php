@@ -4,62 +4,9 @@ require_once '../conexao.php';
 
 $id                                 = preg_replace('/\D/', '', $_POST['id']); //Usando expressão regular para tratar o dado evitando SQL Injection;
 
-#atualiza o registro
-if(isset($_POST['produto'])){ 
-
-    $arquivoEnviado = '';
-
-    if($_FILES['figura']['error'] == 0 && $_FILES['figura']['size'] > 0){
-
-        $mimeType = mime_content_type($_FILES['figura']['tmp_name']);
-
-        $campos = explode('/', $mimeType);
-
-        $tipo = $campos[0];
-        $ext = $campos[1];
-
-        if($tipo == 'image'){
-
-            $arquivoEnviado = '../assets/imagens/' . $_FILES['figura']['name'] . '_' . md5(rand(-99999, 99999) . microtime()) . '.' . $ext;
-
-            move_uploaded_file($_FILES['figura']['tmp_name'], 
-                                "$arquivoEnviado");
-        }else{
-            echo "Só é possível enviar tipo de arquivo de imagens";
-        }
-    }
-
-    $tb_produtos = $bd->prepare('   UPDATE produtos 
-                                    SET nome = :nome, descricao = :descricao, tipo_produto = :tipo, ano = :ano, imagem = :imagem, id_raridade = :raridade, id_categoria= :categoria 
-                                    WHERE id = :id');
-    $tb_produtos->bindParam(':nome', $produto['nome']);
-    $tb_produtos->bindParam(':descricao', $produto['descricao']);
-    $tb_produtos->bindParam(':ano', $produto['ano']);
-    $tb_produtos->bindParam(':imagem', $arquivoEnviado);
-    $tb_produtos->bindParam(':raridade', $raridades['id']);
-    $tb_produtos->bindParam(':categoria', $categorias['categoria']); 
-    $tb_produtos->bindParam(':tipo', $produto['tipo_produto']); 
-    $tb_produtos->bindParam(':id', $id);
-
-    if($tb_produtos->execute()){
-
-        echo "Tarefa atualizada com sucesso!";
-    }else{
-        echo "Erro ao atualizar a tarefa";
-    }
-}# FIM ATUALIZA REGISTRO
-
 $tb_produtos = $bd->query("SELECT nome, tipo_produto, descricao, ano, imagem FROM produtos WHERE id = $id"); // ->query Serve para o select
 $tb_produtos->execute();
 $produto = $tb_produtos->fetch(PDO::FETCH_ASSOC);
-
-$tb_categoria = $bd->query("SELECT categoria FROM categoria_produto WHERE id = $id");
-$tb_categoria->execute();
-$categorias = $tb_categoria->fetch(PDO::FETCH_ASSOC);
-
-$tb_raridade = $bd->query("SELECT nivel FROM raridade WHERE id = $id");
-$tb_raridade->execute();
-$raridades = $tb_raridade->fetch(PDO::FETCH_ASSOC);
 
 $img = 'N/D';
 
@@ -69,7 +16,7 @@ if(!empty($produto['imagem'])){
     }
 }
 
-echo "  <form method='post'>
+echo "  <form action='update.php' method='post'>
             <div class='form-floating mb-3'>
                 <input type='text' class='form-control' name='produto' id='produto' value='{$produto['nome']}' placeholder='Informe o produto' autocomplete='off'>
                 <label label for='produto'>Informe o produto</label>
@@ -87,11 +34,11 @@ echo "  <form method='post'>
                 <label label for='data'>Data de lançamento do Produto</label>
             </div>
             <div class='form-floating mb-3'>
-                <input type='file' class='form-control' id='figura' name='figura' placeholder='Anexar Imagem'>
-                <label for='figura' class='form-label'>Anexar Imagem</label>
+                <input type='file' class='form-control' id='imagem-produto' name='imagem-produto' placeholder='Anexar Imagem'>
+                <label for='imagem-produto' class='form-label'>Anexar Imagem</label>
             </div>
             <div class='form-floating mb-3'>
-                <input class='form-control' name='categoria' list='opcoes_categoria' id='categoria' value='{$categorias['categoria']}' placeholder='Type to search...'>
+                <input class='form-control' name='categoria' list='opcoes_categoria' id='categoria' placeholder='Type to search...' autocomplete='off'>
                 <label for='categoria' class='form-label'>Categoria</label>
                 <datalist id='opcoes_categoria'>
                     <option value='Life Style'>
@@ -99,7 +46,7 @@ echo "  <form method='post'>
                 </datalist>
             </div>
             <div class='form-floating mb-3'>
-                <input class='form-control' name='raridade' list='opcoes_raridade' id='raridade' value='{$raridades['nivel']}' placeholder='Escolha uma raridade'>
+                <input class='form-control' name='raridade' list='opcoes_raridade' id='raridade' placeholder='Escolha uma raridade' autocomplete='off'>
                 <label for='raridade' class='form-label'>Raridade</label>
                 <datalist id='opcoes_raridade'>
                     <option value='Comum'>
@@ -113,6 +60,6 @@ echo "  <form method='post'>
                 <input type='hidden' name='id' value='$id'><br>
             </div>
             <div class='form-floating mb-3'>
-                <input type='submit' value='Enviar'>
+                <input type='submit' value='Atualizar'>
             </div>
         </form> <a href='../controle-de-produtos/listar.php'>Voltar</a>";
