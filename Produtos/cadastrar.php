@@ -9,10 +9,10 @@
     <script type="text/javascript" src="../bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container login-box">
         <div class="row">
-            <div class="col-md-6">
-                <form action="../Banco-de-Dados/controle-de-produtos/gravar.php" method="post">
+            <div class="col-md-6 user-box">
+                <form action="../Banco-de-Dados/controle-de-produtos/gravar.php" method="post" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="produto" id="produto" placeholder="Informe o produto" autocomplete="off">
                         <label label for="produto">Informe o produto</label>

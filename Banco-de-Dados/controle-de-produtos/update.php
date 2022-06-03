@@ -26,7 +26,7 @@ if(isset($_POST['produto'])){
 
         if($tipo == 'image'){
 
-            $arquivoEnviado = '../assets/imagens/' . $_FILES['imagem-produto']['name'] . '_' . md5(rand(-99999, 99999) . microtime()) . '.' . $ext;
+            $arquivoEnviado = '../../assets/imagens' . $_FILES['imagem-produto']['name'] . '_' . md5(rand(-99999, 99999) . microtime()) . '.' . $ext;
 
             move_uploaded_file($_FILES['imagem-produto']['tmp_name'], 
                                 "$arquivoEnviado");

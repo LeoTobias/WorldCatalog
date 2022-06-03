@@ -18,7 +18,7 @@ while($registro = $stmt->fetch(PDO::FETCH_ASSOC)){
     if( !empty($registro['imagem']) ){
 
         if(is_file($registro['imagem'])){
-            $img = "<img src='{$registro['imagem']}'></img>";
+            $img = "<img src='{$registro['imagem']}'>";
         }
     }
 

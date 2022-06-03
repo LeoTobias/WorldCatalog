@@ -16,7 +16,7 @@ if(!empty($produto['imagem'])){
     }
 }
 
-echo "  <form action='update.php' method='post'>
+echo "  <form action='update.php' method='post' enctype='multipart/form-data'>
             <div class='form-floating mb-3'>
                 <input type='text' class='form-control' name='produto' id='produto' value='{$produto['nome']}' placeholder='Informe o produto' autocomplete='off'>
                 <label label for='produto'>Informe o produto</label>

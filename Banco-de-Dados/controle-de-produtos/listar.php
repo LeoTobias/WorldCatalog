@@ -2,7 +2,8 @@
 require '../conexao.php';
 require '../controleDeAcesso.php';
 
-$consulta = $bd->query("SELECT id, nome, descricao, ano, imagem, id_raridade, id_categoria, tipo_produto FROM produtos WHERE apagado = 0")->fetchAll();
+$consulta = $bd->query("SELECT id, nome, descricao, ano, imagem, id_raridade, id_categoria, tipo_produto FROM produtos WHERE apagado = 0");
+$consulta->execute();
 
 ?>
 
@@ -39,11 +40,12 @@ $consulta = $bd->query("SELECT id, nome, descricao, ano, imagem, id_raridade, id
         <th>&nbsp;</th>
         <th>&nbsp;</th>
     </tr>
-        <?php foreach($consulta as $linha):
+        <?php while($linha = $consulta->fetch(PDO::FETCH_ASSOC)):
                 $img = 'N/D';
-                if(!empty($linha['imagem'])){
+                if( !empty($linha['imagem']) ){
+
                     if(is_file($linha['imagem'])){
-                        $img = "<img src='{$linha['imagem']} width='250' height='250'>";
+                        $img = "<img src='{$linha['imagem']} width='350' height='350'>";
                     }
                 }
             ?>
@@ -58,7 +60,7 @@ $consulta = $bd->query("SELECT id, nome, descricao, ano, imagem, id_raridade, id
                     <td><button name="id" formaction="delete.php" value = "<?php echo $linha['id'] ?>">Exluir</button></td>
                     <td><button name="id" formaction="editar.php" value = "<?php echo $linha['id']; ?>">Editar</button></td>
                 </tr>
-        <?php endforeach;?>
+        <?php endwhile;?>
     </table>
 </form>
 <a href="../../home.php">Voltar</a>
