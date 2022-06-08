@@ -7,7 +7,7 @@ $nome                               = $_POST['produto']; //Dado inseguro
 $descricao                          = $_POST['descricao'];
 $ano                                = $_POST['data'];
 $categoria                          = $_POST['categoria'];
-$tipo_produto                       = $_POST['tipo_produto'];
+// $tipo_produto                       = $_POST['tipo_produto'];
 $raridade                           = $_POST['raridade'];
 
 #atualiza o registro
@@ -69,7 +69,7 @@ if(isset($_POST['produto'])){
     }
 
     $tb_produtos = $bd->prepare('   UPDATE produtos 
-                                    SET nome = :nome, descricao = :descricao, tipo_produto = :tipo, ano = :ano, imagem = :imagem, id_raridade = :raridade, id_categoria= :categoria 
+                                    SET nome = :nome, descricao = :descricao, ano = :ano, imagem = :imagem, id_raridade = :raridade, id_categoria= :categoria 
                                     WHERE id = :id');
     $tb_produtos->bindParam(':nome', $nome);
     $tb_produtos->bindParam(':descricao', $descricao);
@@ -77,7 +77,7 @@ if(isset($_POST['produto'])){
     $tb_produtos->bindParam(':imagem', $arquivoEnviado);
     $tb_produtos->bindParam(':raridade', $raridade);
     $tb_produtos->bindParam(':categoria', $categoria); 
-    $tb_produtos->bindParam(':tipo', $tipo_produto); 
+    // $tb_produtos->bindParam(':tipo', $tipo_produto); 
     $tb_produtos->bindParam(':id', $id);
 
     if($tb_produtos->execute()){

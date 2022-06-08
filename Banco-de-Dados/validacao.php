@@ -7,7 +7,7 @@ $email = trim($_POST['email'] ?? '');
 $senha = trim($_POST['senha'] ?? '');
 
 if(empty($email) || empty($senha)){
-    header('location: index.php');
+    header('location: login.php');
 }
 
 $stmt = $bd->prepare (" SELECT senha 
@@ -20,7 +20,7 @@ $val = $stmt->fetch(PDO::FETCH_ASSOC);
 if( password_verify($senha, $val['senha'])){
     $_SESSION['id'] = $email;
 
-    header('location: ../home.php');
+    header('location: ../BizPage/home.php');
 }else{
     echo "Credenciais Inválidas<br><br>
             <a href='login.php'>Voltar</a>";

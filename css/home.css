@@ -1,0 +1,14 @@
+body{
+    background-image: url(/assets/polygon-scatter-haikei.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.imagemCarrossel {
+    width: 1400px;
+    height: 600px;
+}
+
+.container-md {
+    margin-bottom: 100px;
+}

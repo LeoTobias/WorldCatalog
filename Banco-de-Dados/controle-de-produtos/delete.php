@@ -12,7 +12,7 @@ $delete = $bd->exec("   UPDATE produtos
 //SOFT DELETE
 
 if($delete)
-    echo 'tarefa apagada com sucesso';
+    echo 'Produto foi para lixeira com sucesso!';
 else
     echo 'Não foi possivel apagar a tarefa';
 

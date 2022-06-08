@@ -6,7 +6,7 @@ $nome                               = $_POST['produto']; //Dado inseguro
 $descricao                          = $_POST['descricao'];
 $ano                                = $_POST['data'];
 $categoria                          = $_POST['categoria'];
-$tipo_produto                       = $_POST['tipo_produto'];
+// $tipo_produto                       = $_POST['tipo_produto'];
 $raridade                           = $_POST['raridade'];
 $arquivoEnviado                     = '';
 
@@ -25,7 +25,7 @@ if($_FILES['imagem-produto']['error'] == 0 && $_FILES['imagem-produto']['size'] 
 
     if($tipo == 'image'){
 
-        $arquivoEnviado = '../../assets/imagens' . $_FILES['imagem-produto']['name'] . '_' . md5(rand(-99999, 99999) . microtime()) . '.' . $ext;
+        $arquivoEnviado = '../../assets/imagens/' . $_FILES['imagem-produto']['name'] . '_' . md5(rand(-99999, 99999) . microtime()) . '.' . $ext;
 
         move_uploaded_file($_FILES['imagem-produto']['tmp_name'], 
                             "$arquivoEnviado");
@@ -83,9 +83,9 @@ $tb_categoria->bindParam(':categoria', $categoria);
 
 
 $tb_produtos = $bd->prepare('  INSERT INTO produtos
-                            (nome, descricao, ano, imagem, id_raridade, id_categoria, tipo_produto)
+                            (nome, descricao, ano, imagem, id_raridade, id_categoria)
                         VALUES
-                            (:nome, :descricao, :ano, :imagem, :raridade, :categoria, :tipo)');
+                            (:nome, :descricao, :ano, :imagem, :raridade, :categoria)');
 
 $tb_produtos->bindParam(':nome', $nome);
 $tb_produtos->bindParam(':descricao', $descricao);
@@ -93,7 +93,7 @@ $tb_produtos->bindParam(':ano', $ano);
 $tb_produtos->bindParam(':imagem', $arquivoEnviado);
 $tb_produtos->bindParam(':raridade', $raridade);
 $tb_produtos->bindParam(':categoria', $categoria); 
-$tb_produtos->bindParam(':tipo', $tipo_produto); 
+// $tb_produtos->bindParam(':tipo', $tipo_produto); 
 
 if( $tb_produtos->execute() ){
     echo "$nome inserido com sucesso!";
